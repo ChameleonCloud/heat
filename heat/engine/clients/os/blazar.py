@@ -15,6 +15,8 @@ from blazarclient import client as blazar_client
 from keystoneauth1.exceptions import http as ks_exc
 
 from heat.engine.clients import client_plugin
+from heat.common import exception
+from heat.engine import constraints
 
 CLIENT_NAME = 'blazar'
 
@@ -40,3 +42,19 @@ class BlazarClientPlugin(client_plugin.ClientPlugin):
 
     def has_host(self):
         return True if self.client().host.list() else False
+
+    def get_reservation_by_ref(self, reservation_ref):
+        try:
+            return reservation_ref
+        except Exception as ex:
+            if self.is_not_found(ex):
+                raise exception.EntityNotFound(
+                    entity="Reservation",
+                    name=reservation_ref)
+            raise
+
+class ReservationConstraint(constraints.BaseCustomConstraint):
+    expected_exceptions = (exception.EntityNotFound,)
+
+    def validate_with_client(self, client, reservation):
+        pass
