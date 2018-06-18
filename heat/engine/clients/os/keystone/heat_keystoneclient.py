@@ -128,6 +128,14 @@ class KsClientWrapper(object):
         return auth_region
 
     @property
+    def region_name_for_domain_admin(self):
+        return (
+            self.context.region_name or
+            cfg.CONF.region_name_for_domain_admin or
+            cfg.CONF.region_name_for_services)
+
+
+    @property
     def domain_admin_auth(self):
         if not self._domain_admin_auth:
             # Note we must specify the domain when getting the token
@@ -158,7 +166,7 @@ class KsClientWrapper(object):
                 session=self.session,
                 auth=self.domain_admin_auth,
                 connect_retries=cfg.CONF.client_retry_limit,
-                region_name=self.auth_region_name)
+                region_name=self.region_name_for_domain_admin)
 
         return self._domain_admin_client
 
