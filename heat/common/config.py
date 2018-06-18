@@ -60,6 +60,10 @@ service_opts = [
                       'SSL is used.')),
     cfg.StrOpt('region_name_for_services',
                help=_('Default region name used to get services endpoints.')),
+    cfg.StrOpt('region_name_for_domain_admin',
+               help=_('Default region name used for operations by the domain '
+                      'admin. It allows to direct user creation to the '
+                      'master Keystone database.')),
     cfg.StrOpt('heat_stack_user_role',
                default="heat_stack_user",
                help=_('Keystone role for heat template-defined users.')),
