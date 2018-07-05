@@ -257,7 +257,8 @@ class ServersTest(common.HeatTestCase):
         templ = template.Template(t,
                                   env=environment.Environment(
                                       {'key_name': 'test'}))
-        stack = parser.Stack(utils.dummy_context(), stack_name, templ,
+        stack = parser.Stack(utils.dummy_context(region_name="RegionOne"),
+                             stack_name, templ,
                              stack_id=uuidutils.generate_uuid(),
                              stack_user_project_id='8888')
         return templ, stack
@@ -808,6 +809,7 @@ class ServersTest(common.HeatTestCase):
                     'auth_url': 'http://server.test:5000/v2.0',
                     'password': server.password,
                     'project_id': '8888',
+                    'region_name': 'RegionOne',
                     'resource_name': 'WebServer',
                     'stack_id': 'software_config_s/%s' % stack.id,
                     'user_id': '1234'
@@ -827,6 +829,7 @@ class ServersTest(common.HeatTestCase):
                     'auth_url': 'http://server.test:5000/v2.0',
                     'password': server.password,
                     'project_id': '8888',
+                    'region_name': 'RegionOne',
                     'resource_name': 'WebServer',
                     'stack_id': 'software_config_s/%s' % stack.id,
                     'user_id': '1234'
@@ -972,7 +975,8 @@ class ServersTest(common.HeatTestCase):
                     'password': server.password,
                     'auth_url': 'http://server.test:5000/v2.0',
                     'project_id': '8888',
-                    'queue_id': queue_id
+                    'queue_id': queue_id,
+                    'region_name': 'RegionOne',
                 },
                 'collectors': ['ec2', 'zaqar', 'local']
             },
@@ -989,7 +993,8 @@ class ServersTest(common.HeatTestCase):
                     'password': server.password,
                     'auth_url': 'http://server.test:5000/v2.0',
                     'project_id': '8888',
-                    'queue_id': queue_id
+                    'queue_id': queue_id,
+                    'region_name': 'RegionOne',
                 },
                 'collectors': ['ec2', 'zaqar', 'local'],
                 'polling_interval': 10
@@ -1671,7 +1676,7 @@ class ServersTest(common.HeatTestCase):
                     'metadata_url': None,
                     'path': None,
                     'secret_access_key': None,
-                    'stack_name': None
+                    'stack_name': None,
                 },
                 'request': {
                     'metadata_url': 'the_url',
@@ -1692,6 +1697,7 @@ class ServersTest(common.HeatTestCase):
                     'auth_url': 'http://server.test:5000/v2.0',
                     'password': password,
                     'project_id': '8888',
+                    'region_name': 'RegionOne',
                     'resource_name': 'WebServer',
                     'stack_id': 'software_config_s/%s' % stack.id,
                     'user_id': '1234'
@@ -1724,12 +1730,14 @@ class ServersTest(common.HeatTestCase):
                     'password': password_1,
                     'auth_url': 'http://server.test:5000/v2.0',
                     'project_id': '8888',
-                    'queue_id': server.data().get('metadata_queue_id')
+                    'queue_id': server.data().get('metadata_queue_id'),
+                    'region_name': 'RegionOne',
                 },
                 'heat': {
                     'auth_url': None,
                     'password': None,
                     'project_id': None,
+                    'region_name': None,
                     'resource_name': None,
                     'stack_id': None,
                     'user_id': None
