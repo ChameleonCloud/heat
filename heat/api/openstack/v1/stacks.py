@@ -51,6 +51,7 @@ class InstantiationData(object):
         PARAM_ENVIRONMENT,
         PARAM_FILES,
         PARAM_ENVIRONMENT_FILES,
+        PARAM_INITIALIZE
     ) = (
         'stack_name',
         'template',
@@ -59,6 +60,7 @@ class InstantiationData(object):
         'environment',
         'files',
         'environment_files',
+        'initialize'
     )
 
     def __init__(self, data, patch=False):
@@ -157,6 +159,9 @@ class InstantiationData(object):
 
     def environment_files(self):
         return self.data.get(self.PARAM_ENVIRONMENT_FILES, None)
+
+    def initialize(self):
+        return self.data.get(self.PARAM_INITIALIZE, False)
 
     def args(self):
         """Get any additional arguments supplied by the user."""

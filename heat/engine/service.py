@@ -751,7 +751,7 @@ class EngineService(service.ServiceBase):
 
     @context.request_context
     def create_stack(self, cnxt, stack_name, template, params, files,
-                     args, environment_files=None,
+                     args, environment_files=None, initialize=False
                      owner_id=None, nested_depth=0, user_creds_id=None,
                      stack_user_project_id=None, parent_resource_name=None,
                      template_id=None):
@@ -813,6 +813,13 @@ class EngineService(service.ServiceBase):
             template_id)
 
         stack_id = stack.store()
+
+        # Return without allocating resources if stack set to initialize
+        if initialize:
+            stack.action = stack.INIT
+            stack.status = stack.COMPLETE
+            return dict(stack.identifier())
+
         if cfg.CONF.reauthentication_auth_method == 'trusts':
             stack = parser.Stack.load(
                 cnxt, stack_id=stack_id, use_stored_context=True)
