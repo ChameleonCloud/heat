@@ -390,8 +390,6 @@ class StackController(object):
         """Create a new stack."""
         data = InstantiationData(body)
 
-        LOG.debug('API CREATE STACK INITALIZE: %s' % data.initialize())
-
         args = self.prepare_args(data)
         result = self.rpc_client.create_stack(
             req.context,
@@ -400,7 +398,6 @@ class StackController(object):
             data.environment(),
             data.files(),
             args,
-            initialize=data.initialize(),
             environment_files=data.environment_files())
 
         formatted_stack = stacks_view.format_stack(
