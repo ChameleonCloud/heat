@@ -53,6 +53,11 @@ def extract_args(params):
         disable_rollback = param_utils.extract_bool(name, params[name])
         kwargs[name] = disable_rollback
 
+    name = rpc_api.PARAM_INITIALIZE
+    if name in params:
+        initialize = param_utils.extract_bool(name, params[name])
+        kwargs[name] = initialize
+
     name = rpc_api.PARAM_SHOW_DELETED
     if name in params:
         params[name] = param_utils.extract_bool(name, params[name])

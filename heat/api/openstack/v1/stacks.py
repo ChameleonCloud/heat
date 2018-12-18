@@ -50,8 +50,7 @@ class InstantiationData(object):
         PARAM_USER_PARAMS,
         PARAM_ENVIRONMENT,
         PARAM_FILES,
-        PARAM_ENVIRONMENT_FILES,
-        PARAM_INITIALIZE
+        PARAM_ENVIRONMENT_FILES
     ) = (
         'stack_name',
         'template',
@@ -59,8 +58,7 @@ class InstantiationData(object):
         'parameters',
         'environment',
         'files',
-        'environment_files',
-        'initialize'
+        'environment_files'
     )
 
     def __init__(self, data, patch=False):
@@ -159,9 +157,6 @@ class InstantiationData(object):
 
     def environment_files(self):
         return self.data.get(self.PARAM_ENVIRONMENT_FILES, None)
-
-    def initialize(self):
-        return self.data.get(self.PARAM_INITIALIZE, False)
 
     def args(self):
         """Get any additional arguments supplied by the user."""
@@ -395,6 +390,8 @@ class StackController(object):
         """Create a new stack."""
         data = InstantiationData(body)
 
+        LOG.debug('API CREATE STACK INITALIZE: %s' % data.initialize())
+
         args = self.prepare_args(data)
         result = self.rpc_client.create_stack(
             req.context,
@@ -403,6 +400,7 @@ class StackController(object):
             data.environment(),
             data.files(),
             args,
+            initialize=data.initialize(),
             environment_files=data.environment_files())
 
         formatted_stack = stacks_view.format_stack(

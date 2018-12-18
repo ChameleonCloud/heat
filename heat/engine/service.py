@@ -751,7 +751,7 @@ class EngineService(service.ServiceBase):
 
     @context.request_context
     def create_stack(self, cnxt, stack_name, template, params, files,
-                     args, environment_files=None, initialize=False
+                     args, environment_files=None,
                      owner_id=None, nested_depth=0, user_creds_id=None,
                      stack_user_project_id=None, parent_resource_name=None,
                      template_id=None):
@@ -812,13 +812,14 @@ class EngineService(service.ServiceBase):
             stack_user_project_id, convergence, parent_resource_name,
             template_id)
 
-        stack_id = stack.store()
-
         # Return without allocating resources if stack set to initialize
-        if initialize:
+        if stack.initialize:
             stack.action = stack.INIT
             stack.status = stack.COMPLETE
+            stack.store()
             return dict(stack.identifier())
+
+        stack_id = stack.store()
 
         if cfg.CONF.reauthentication_auth_method == 'trusts':
             stack = parser.Stack.load(
