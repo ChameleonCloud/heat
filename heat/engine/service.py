@@ -817,6 +817,7 @@ class EngineService(service.ServiceBase):
             stack.action = stack.INIT
             stack.status = stack.COMPLETE
             stack.store()
+            _create_stack_user(stack)
             return dict(stack.identifier())
 
         stack_id = stack.store()

@@ -232,7 +232,7 @@ class EngineClient(object):
                          version='1.23')
 
     def create_stack(self, ctxt, stack_name, template, params, files,
-                     args, initialize=False, environment_files=None):
+                     args, environment_files=None):
         """Creates a new stack using the template provided.
 
         Note that at this stage the template has already been fetched from the
