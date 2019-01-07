@@ -106,10 +106,10 @@ class Stack(collections.Mapping):
 
     ACTIONS = (
         CREATE, DELETE, UPDATE, ROLLBACK, SUSPEND, RESUME, ADOPT,
-        SNAPSHOT, CHECK, RESTORE
+        SNAPSHOT, CHECK, RESTORE, INIT
     ) = (
         'CREATE', 'DELETE', 'UPDATE', 'ROLLBACK', 'SUSPEND', 'RESUME', 'ADOPT',
-        'SNAPSHOT', 'CHECK', 'RESTORE'
+        'SNAPSHOT', 'CHECK', 'RESTORE', 'INIT'
     )
 
     STATUSES = (IN_PROGRESS, FAILED, COMPLETE
@@ -122,7 +122,7 @@ class Stack(collections.Mapping):
                  status_reason='', timeout_mins=None,
                  disable_rollback=True, parent_resource=None, owner_id=None,
                  adopt_stack_data=None, stack_user_project_id=None,
-                 created_time=None, updated_time=None,
+                 created_time=None, updated_time=None, initialize=False,
                  user_creds_id=None, tenant_id=None,
                  use_stored_context=False, username=None,
                  nested_depth=0, strict_validate=True, convergence=False,
@@ -166,6 +166,7 @@ class Stack(collections.Mapping):
         self.status_reason = status_reason
         self.timeout_mins = timeout_mins
         self.disable_rollback = disable_rollback
+        self.initialize = initialize
         self._outputs = None
         self._resources = None
         self._dependencies = None
