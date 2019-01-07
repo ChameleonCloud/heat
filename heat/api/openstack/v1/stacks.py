@@ -50,7 +50,7 @@ class InstantiationData(object):
         PARAM_USER_PARAMS,
         PARAM_ENVIRONMENT,
         PARAM_FILES,
-        PARAM_ENVIRONMENT_FILES,
+        PARAM_ENVIRONMENT_FILES
     ) = (
         'stack_name',
         'template',
@@ -58,7 +58,7 @@ class InstantiationData(object):
         'parameters',
         'environment',
         'files',
-        'environment_files',
+        'environment_files'
     )
 
     def __init__(self, data, patch=False):

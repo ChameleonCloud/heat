@@ -812,7 +812,16 @@ class EngineService(service.ServiceBase):
             stack_user_project_id, convergence, parent_resource_name,
             template_id)
 
+        # Return without allocating resources if stack set to initialize
+        if stack.initialize:
+            stack.action = stack.INIT
+            stack.status = stack.COMPLETE
+            stack.store()
+            _create_stack_user(stack)
+            return dict(stack.identifier())
+
         stack_id = stack.store()
+
         if cfg.CONF.reauthentication_auth_method == 'trusts':
             stack = parser.Stack.load(
                 cnxt, stack_id=stack_id, use_stored_context=True)
