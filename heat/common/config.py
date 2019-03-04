@@ -62,6 +62,10 @@ service_opts = [
                help=_('Default region name used for operations by the domain '
                       'admin. It allows to direct user creation to the '
                       'master Keystone database.')),
+    cfg.StrOpt('interface_for_domain_admin',
+               help=_('Default interface used for operations by the domain '
+                      'admin. It allows to direct user creation to the '
+                      'master Keystone database.')),
     cfg.StrOpt('heat_stack_user_role',
                default="heat_stack_user",
                help=_('Keystone role for heat template-defined users.')),
