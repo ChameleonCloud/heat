@@ -49,7 +49,7 @@ def extract_args(params):
     for name in [
             rpc_api.PARAM_CONVERGE,
             rpc_api.PARAM_DISABLE_ROLLBACK,
-            rpc_api.PARAMS_INITIALIZE]:
+            rpc_api.PARAM_INITIALIZE]:
         if name in params:
             bool_value = param_utils.extract_bool(name, params[name])
             kwargs[name] = bool_value
