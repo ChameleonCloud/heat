@@ -129,11 +129,7 @@ class KsClientWrapper(object):
 
     @property
     def region_name_for_domain_admin(self):
-        return (
-            self.context.region_name or
-            cfg.CONF.region_name_for_domain_admin or
-            cfg.CONF.region_name_for_services)
-
+        return cfg.CONF.region_name_for_domain_admin or self.auth_region_name
 
     @property
     def domain_admin_auth(self):
