@@ -72,4 +72,5 @@ class ReservationConstraint(BlazarBaseConstraint):
         exception.EntityNotFound,
         client_exception.BlazarClientException,)
 
-    resource_getter_name = 'get_lease'
+    def validate_with_client(self, client, reservation):
+        pass
