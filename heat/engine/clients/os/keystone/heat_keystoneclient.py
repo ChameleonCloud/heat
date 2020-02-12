@@ -162,7 +162,8 @@ class KsClientWrapper(object):
                 session=self.session,
                 auth=self.domain_admin_auth,
                 connect_retries=cfg.CONF.client_retry_limit,
-                region_name=self.region_name_for_domain_admin)
+                region_name=self.region_name_for_domain_admin,
+                interface=cfg.CONF.interface_for_domain_admin)
 
         return self._domain_admin_client
 
